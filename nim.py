@@ -184,8 +184,12 @@ class NimAI():
 
         #make a interaction to get the best action
         bestAction = actions[0]
+        bestQ = self.get_q_value(state, actions[0])
         for action in actions[1:]:
-            if self.get_q_value(state,action) > bestAction: bestAction = action
+            q = self.get_q_value(state, action)
+            if q > bestQ:
+                bestAction = action
+                bestQ = q 
 
         #choosin a random action if epsilon is true
         if epsilon:
