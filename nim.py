@@ -134,13 +134,13 @@ class NimAI():
         """
         actions = []
         # interact over the piles
-        for pile in state:
+        for i in range(len(state)):
             # if pile is 0 there is no action to take else therer actions
-            if pile != 0:
+            if state[i] != 0:
                 # interact over all options of remove 
-                for n_ball in range(1, pile+1):
+                for n_ball in range(1, state[i]+1):
                     # append the action to the actions
-                    actions.append((pile, n_ball))
+                    actions.append((i, n_ball))
         return actions
 
     def best_future_reward(self, state):
@@ -185,6 +185,7 @@ class NimAI():
         #make a interaction to get the best action
         bestAction = actions[0]
         bestQ = self.get_q_value(state, actions[0])
+        
         for action in actions[1:]:
             q = self.get_q_value(state, action)
             if q > bestQ:
@@ -201,6 +202,7 @@ class NimAI():
         #returning best action if epsilon is true
         else:
             return bestAction
+        
 
 
 def train(n):
