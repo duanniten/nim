@@ -125,6 +125,26 @@ class NimAI():
             )
               )
 
+    def get_actions(self, state):
+        """
+        Given a state `state`, return a list of all possible actions to take
+        - `state` is a tuple of remaining piles, e.g. (1, 1, 4, 4)
+        - `action` is a tuple `(i, j)` for an action
+        """
+        actions = []
+        # interact over the piles
+        for pile in state:
+            # if pile is 0 there is no action to take else therer actions
+            if pile != 0:
+                # interact over all options of remove 
+                for n_ball in range(1, pile+1):
+                    # append the action to the actions
+                    actions.append((pile, n_ball))
+        return actions
+
+
+        
+
     def best_future_reward(self, state):
         """
         Given a state `state`, consider all possible `(state, action)`
@@ -135,7 +155,7 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        raise NotImplementedError
+        
 
     def choose_action(self, state, epsilon=True):
         """
