@@ -123,9 +123,8 @@ class NimAI():
         self.q[(state, action)] = (
             old_q +
             self.alpha * (
-                reward + future_rewards
+                reward + future_rewards - old_q) 
             )
-              )
 
     def get_actions(self, state):
         """
