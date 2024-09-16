@@ -142,9 +142,6 @@ class NimAI():
                     actions.append((pile, n_ball))
         return actions
 
-
-        
-
     def best_future_reward(self, state):
         """
         Given a state `state`, consider all possible `(state, action)`
@@ -181,7 +178,24 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        raise NotImplementedError
+        #get all possible actions
+        actions = self.get_actions(state)
+
+        #make a interaction to get the best action
+        bestAction = actions[0]
+        for action in actions[1:]:
+            if self.get_q_value(state,action) > bestAction: bestAction = action
+
+        #choosin a random action if epsilon is true
+        if epsilon:
+            if random.random()  < self.epsilon:
+                return random.choice(actions)
+            
+            else:
+                return bestAction
+        #returning best action if epsilon is true
+        else:
+            return bestAction
 
 
 def train(n):
